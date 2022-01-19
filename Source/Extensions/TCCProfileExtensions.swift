@@ -28,11 +28,11 @@
 import Foundation
 
 public extension TCCProfile {
-    
+
     enum ParseError: Error {
         case failedToCreateDecoder
     }
-    
+
     /// Create a ``TCCProfile`` object from a `Data` containing a provisioning profile.
     /// - Parameter profileData: The raw profile data (generally from a file read operation).  This may be CMS encoded.
     /// - Returns: A ``TCCProfile`` instance.
@@ -44,7 +44,7 @@ public extension TCCProfile {
         }
         cmsDecoder.updateMessage(data: profileData as NSData)
         cmsDecoder.finaliseMessage()
-        
+
         var plistData: Data
         if let decodedData = cmsDecoder.data {
             // Use the decoded data if CMS decoding worked.
@@ -53,13 +53,13 @@ public extension TCCProfile {
             // Assume it failed because it's not encrypted and move on to deserialize with original data.
             plistData = profileData
         }
-        
+
         // Adjust letter case of required keys to be more flexible during import.
         plistData = fixLetterCase(of: plistData)
-        
+
         return try PropertyListDecoder().decode(TCCProfile.self, from: plistData)
     }
-    
+
     /// Adjust the letter case of required profile keys to meet the standard during import.
     /// - Parameter original: The original data from the file
     /// - Returns: (Possibly) updated data with all of the required profile keys meeting the standard letter case.
@@ -87,7 +87,7 @@ public extension TCCProfile {
         guard let newData = newString.data(using: .utf8) else {
             return original
         }
-        
+
         return newData
     }
 }
