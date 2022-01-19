@@ -42,6 +42,7 @@
 		6EC40A1C214EF87800BE4F17 /* SigningIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC40A1B214EF87800BE4F17 /* SigningIdentity.swift */; };
 		71061E54246106C800822D35 /* LoadExecutableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71061E53246106C800822D35 /* LoadExecutableError.swift */; };
 		B5E09548250BCCFC00A40409 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E09547250BCCFC00A40409 /* Alert.swift */; };
+		C0A85DB5279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		71061E53246106C800822D35 /* LoadExecutableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadExecutableError.swift; sourceTree = "<group>"; };
 		97227C6726248CD7000F26C1 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B5E09547250BCCFC00A40409 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TestTCCUnsignedProfile-allLower.mobileconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				5F95AE2B2315B172002E0A22 /* TestTCCProfileSigned-Broken.mobileconfig */,
+				C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */,
 				5F95AE2A2315B172002E0A22 /* TestTCCUnsignedProfile-Broken.mobileconfig */,
 				5F95AE2C2315B172002E0A22 /* TestTCCUnsignedProfile-Empty.mobileconfig */,
 				5F95AE292315B172002E0A22 /* TestTCCUnsignedProfile.mobileconfig */,
@@ -365,6 +368,7 @@
 				5F95AE2E2315B172002E0A22 /* TestTCCUnsignedProfile.mobileconfig in Resources */,
 				5F95AE312315B172002E0A22 /* TestTCCUnsignedProfile-Empty.mobileconfig in Resources */,
 				5F95AE2F2315B172002E0A22 /* TestTCCUnsignedProfile-Broken.mobileconfig in Resources */,
+				C0A85DB5279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig in Resources */,
 				5F95AE302315B172002E0A22 /* TestTCCProfileSigned-Broken.mobileconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
