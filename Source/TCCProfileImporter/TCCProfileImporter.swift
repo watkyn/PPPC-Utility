@@ -43,8 +43,6 @@ public class TCCProfileImporter {
             // Note that parse will ignore the signing portion of the data
             let tccProfile = try TCCProfile.parse(from: data)
             return completion(.success(tccProfile))
-        } catch TCCProfile.ParseError.failedToCreateData {
-            return completion(.failure(.decodeProfileError))
         } catch TCCProfile.ParseError.failedToCreateDecoder {
             return completion(.failure(.decodeProfileError))
         } catch let DecodingError.keyNotFound(codingKey, _) {

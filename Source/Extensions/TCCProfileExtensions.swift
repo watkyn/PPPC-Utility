@@ -31,7 +31,6 @@ public extension TCCProfile {
     
     enum ParseError: Error {
         case failedToCreateDecoder
-        case failedToCreateData
     }
     
     /// Create a ``TCCProfile`` object from a `Data` containing a provisioning profile.
