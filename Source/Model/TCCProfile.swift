@@ -60,7 +60,7 @@ struct TCCPolicy: Codable {
     var receiverIdentifierType: TCCPolicyIdentifierType?
     var receiverCodeRequirement: String?
 
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey, CaseIterable {
         case identifier = "Identifier"
         case identifierType = "IdentifierType"
         case allowed = "Allowed"
@@ -97,7 +97,7 @@ public struct TCCProfile: Codable {
         var services: [String: [TCCPolicy]]
 
         // swiftlint:disable:next nesting
-        enum CodingKeys: String, CodingKey {
+        enum CodingKeys: String, CodingKey, CaseIterable {
             case payloadDescription = "PayloadDescription"
             case displayName = "PayloadDisplayName"
             case identifier = "PayloadIdentifier"
@@ -118,7 +118,7 @@ public struct TCCProfile: Codable {
     var displayName: String
     var payloadDescription: String
     var content: [Content]
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey, CaseIterable {
         case payloadDescription = "PayloadDescription"
         case displayName = "PayloadDisplayName"
         case identifier = "PayloadIdentifier"

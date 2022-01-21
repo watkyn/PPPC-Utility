@@ -6,19 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 <!-- Add any information here about changes in master that have yet to be released -->
+### Changed
+- (@macblazer) Now reads profile keys in a case-insensitive manner during import (issue #88).
 
-## [1.4.0]
+## [1.4.0] - 2021-08-11
 
 ### Added
-- (@ty-wilson) Issue #79 Changed the property labels to match System Preferces with the MDM key listed in the help
+- (@ty-wilson) Issue #79 Changed the property labels to match System Preferces with the MDM key listed in the help.
 - (@macblazer) Issue #85 Application list and Apple Events app list both support multiple apps being dragged into the list.
 
 ### Fixed
-- (@ty-wilson) Fixed issue #54 where the code signing label was truncated
-- (@ty-wilson) Fixed issue #83 where removing an apple event always removed the first one in the list instead of the selected item
+- (@ty-wilson) Fixed issue #54 where the code signing label was truncated.
+- (@ty-wilson) Fixed issue #83 where removing an apple event always removed the first one in the list instead of the selected item.
 
 
-## [1.3.0]
+## [1.3.0] - 2020-10-22
 
 ### Added
 

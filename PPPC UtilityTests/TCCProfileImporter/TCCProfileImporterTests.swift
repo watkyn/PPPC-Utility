@@ -80,6 +80,22 @@ class TCCProfileImporterTests: XCTestCase {
         }
     }
 
+    func testCorrectUnsignedProfileContentDataAllLowercase() {
+        let tccProfileImporter = TCCProfileImporter()
+
+        let resourceURL = getResourceProfile(fileName: "TestTCCUnsignedProfile-allLower")
+
+        tccProfileImporter.decodeTCCProfile(fileUrl: resourceURL) { tccProfileResult in
+            switch tccProfileResult {
+            case .success(let tccProfile):
+                XCTAssertNotNil(tccProfile.content)
+                XCTAssertNotNil(tccProfile.content[0].services)
+            case .failure(let tccProfileError):
+                XCTFail("Unable to read tccProfile \(tccProfileError.localizedDescription)")
+            }
+        }
+    }
+
     func testBrokenUnsignedProfile() {
         let tccProfileImporter = TCCProfileImporter()
 

@@ -31,28 +31,63 @@ public extension TCCProfile {
 
     enum ParseError: Error {
         case failedToCreateDecoder
-        case failedToCreateData
     }
 
-    /// Create a Provisioning Profile object from the file's Data.
+    /// Create a ``TCCProfile`` object from a `Data` containing a provisioning profile.
+    /// - Parameter profileData: The raw profile data (generally from a file read operation).  This may be CMS encoded.
+    /// - Returns: A ``TCCProfile`` instance.
+    /// - Throws: Either a ``TCCProfile.ParseError`` or a `DecodingError`.
     static func parse(from profileData: Data) throws -> TCCProfile {
-
-        guard let decoder = SwiftyCMSDecoder() else {
+        // The profile may be CMS encoded; let's try to decode it.
+        guard let cmsDecoder = SwiftyCMSDecoder() else {
             throw ParseError.failedToCreateDecoder
         }
+        cmsDecoder.updateMessage(data: profileData as NSData)
+        cmsDecoder.finaliseMessage()
 
-        decoder.updateMessage(data: profileData as NSData)
-        decoder.finaliseMessage()
-
-        var data = decoder.data
-
-        if data == nil {
-            // Assume it failed because it's not encrypted and move on to deserialize data into TCCProfile object with data as is.
-            data = profileData
+        var plistData: Data
+        if let decodedData = cmsDecoder.data {
+            // Use the decoded data if CMS decoding worked.
+            plistData = decodedData
+        } else {
+            // Assume it failed because it's not encrypted and move on to deserialize with original data.
+            plistData = profileData
         }
 
-        return try PropertyListDecoder().decode(TCCProfile.self, from: data!)
+        // Adjust letter case of required keys to be more flexible during import.
+        plistData = fixLetterCase(of: plistData)
 
+        return try PropertyListDecoder().decode(TCCProfile.self, from: plistData)
     }
 
+    /// Adjust the letter case of required profile keys to meet the standard during import.
+    /// - Parameter original: The original data from the file
+    /// - Returns: (Possibly) updated data with all of the required profile keys meeting the standard letter case.
+    private static func fixLetterCase(of original: Data) -> Data {
+        guard let originalString = String(data: original, encoding: .utf8) else {
+            return original
+        }
+        var newString = originalString
+
+        // This block looks for the given coding key within a property list XML string and
+        // converts it to the standard letter case.
+        let conversionBlock = { (codingKey: CodingKey) -> Void in
+            let requiredString = ">\(codingKey.stringValue)<"
+            newString = newString.replacingOccurrences(of: requiredString,
+                                                       with: requiredString,
+                                                       options: .caseInsensitive)
+        }
+
+        // Currently there are three model structs that are used to decode the profile.
+        TCCProfile.CodingKeys.allCases.forEach(conversionBlock)
+        TCCProfile.Content.CodingKeys.allCases.forEach(conversionBlock)
+        TCCPolicy.CodingKeys.allCases.forEach(conversionBlock)
+
+        // Convert the String back to Data
+        guard let newData = newString.data(using: .utf8) else {
+            return original
+        }
+
+        return newData
+    }
 }
