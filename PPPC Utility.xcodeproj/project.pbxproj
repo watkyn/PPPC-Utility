@@ -24,7 +24,6 @@
 		5F95AE302315B172002E0A22 /* TestTCCProfileSigned-Broken.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5F95AE2B2315B172002E0A22 /* TestTCCProfileSigned-Broken.mobileconfig */; };
 		5F95AE312315B172002E0A22 /* TestTCCUnsignedProfile-Empty.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5F95AE2C2315B172002E0A22 /* TestTCCUnsignedProfile-Empty.mobileconfig */; };
 		6E6216F9215321CE0043DF18 /* OpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6216F8215321CE0043DF18 /* OpenViewController.swift */; };
-		6E651CC523143890001CC974 /* ProfilesDescriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651CC423143890001CC974 /* ProfilesDescriptions.swift */; };
 		6E651CC82314397D001CC974 /* FlippedClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651CC72314397D001CC974 /* FlippedClipView.swift */; };
 		6E651CCA231439CE001CC974 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E651CC9231439CE001CC974 /* InfoButton.swift */; };
 		6EB45830214FFCCB00BE5749 /* AppleEventRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB4582F214FFCCB00BE5749 /* AppleEventRule.swift */; };
@@ -79,7 +78,6 @@
 		5F95AE2C2315B172002E0A22 /* TestTCCUnsignedProfile-Empty.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TestTCCUnsignedProfile-Empty.mobileconfig"; sourceTree = "<group>"; };
 		6E5D5A1521541B8F00B43312 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6E6216F8215321CE0043DF18 /* OpenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenViewController.swift; sourceTree = "<group>"; };
-		6E651CC423143890001CC974 /* ProfilesDescriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesDescriptions.swift; sourceTree = "<group>"; };
 		6E651CC72314397D001CC974 /* FlippedClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlippedClipView.swift; sourceTree = "<group>"; };
 		6E651CC9231439CE001CC974 /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
 		6E95730721553B650002C30B /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -267,7 +265,6 @@
 				6EC40A13214DFB5800BE4F17 /* Model.swift */,
 				C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */,
 				C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */,
-				6E651CC423143890001CC974 /* ProfilesDescriptions.swift */,
 				6EC40A1B214EF87800BE4F17 /* SigningIdentity.swift */,
 				6EC409F4214D95D200BE4F17 /* TCCProfile.swift */,
 			);
@@ -448,7 +445,6 @@
 				C0E0383F27A30C7100A23FA2 /* PPPCServiceInfo.swift in Sources */,
 				6EC40A1C214EF87800BE4F17 /* SigningIdentity.swift in Sources */,
 				6EC40A18214ECF2C00BE4F17 /* UploadViewController.swift in Sources */,
-				6E651CC523143890001CC974 /* ProfilesDescriptions.swift in Sources */,
 				C0E0384027A30C7100A23FA2 /* PPPCServicesManager.swift in Sources */,
 				6E651CCA231439CE001CC974 /* InfoButton.swift in Sources */,
 				6EC409F5214D95D200BE4F17 /* TCCProfile.swift in Sources */,

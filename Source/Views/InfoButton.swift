@@ -30,8 +30,8 @@ import Cocoa
 class InfoButton: NSButton {
     private var helpMessage: String = ""
 
-    func setHelpMessage(_ message: String) {
-        self.helpMessage = message
+    func setHelpMessage(_ message: String?) {
+        self.helpMessage = message ?? ""
     }
 
     func showHelpMessage() {
