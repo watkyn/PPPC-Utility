@@ -55,13 +55,13 @@ class PPPCServicesManagerTests: XCTestCase {
     func testUserHelp_withoutEntitlements() throws {
         // given
         let services = PPPCServicesManager()
-        let service = try XCTUnwrap(services.allServices["SystemPolicyRemovableVolumes"])
+        let service = try XCTUnwrap(services.allServices["ScreenCapture"])
 
         // when
         let actual = service.userHelp
 
         // then
-        XCTAssertEqual(actual, "Allows specified apps access to files on removable volumes.\n\nMDM Key: SystemPolicyRemovableVolumes")
+        XCTAssertEqual(actual, "Deny specified apps access to capture (read) the contents of the system display.\n\nMDM Key: ScreenCapture")
     }
 
     func testCameraIsDenyOnly() throws {

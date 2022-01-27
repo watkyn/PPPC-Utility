@@ -31,18 +31,20 @@
     {
         "mdmKey": "SystemPolicyDesktopFolder",
 		"englishName": "Desktop Folder",
-		"englishDescription": "Allows specified apps access to the Desktop folder."
+		"englishDescription": "Allows specified apps access to the Desktop folder.",
+        "entitlements": ["com.apple.security.files.user-selected.read-only", "com.apple.security.files.user-selected.read-write"]
 	},
     {
         "mdmKey": "SystemPolicyDocumentsFolder",
 		"englishName": "Documents Folder",
-		"englishDescription": "Allows specified apps access to the Documents folder."
+		"englishDescription": "Allows specified apps access to the Documents folder.",
+        "entitlements": ["com.apple.security.files.user-selected.read-only", "com.apple.security.files.user-selected.read-write"]
 	},
     {
         "mdmKey": "SystemPolicyDownloadsFolder",
 		"englishName": "Downloads Folder",
 		"englishDescription": "Allows specified apps access to the Downloads folder.",
-		"entitlements": ["com.apple.security.files.downloads.read-only", "com.apple.security.files.downloads.read-write"]
+		"entitlements": ["com.apple.security.files.downloads.read-only", "com.apple.security.files.downloads.read-write", "com.apple.security.files.user-selected.read-only", "com.apple.security.files.user-selected.read-write"]
 	},
     {
         "mdmKey": "FileProviderPresence",
@@ -61,7 +63,8 @@
     {
         "mdmKey": "MediaLibrary",
 		"englishName": "Media & Apple Music",
-		"englishDescription": "Allows specified apps access to access Apple Music, music and video activity, and the media library."
+		"englishDescription": "Allows specified apps access to access Apple Music, music and video activity, and the media library.",
+        "entitlements": ["com.apple.security.assets.music.read-only", "com.apple.security.assets.music.read-write", "com.apple.security.files.user-selected.read-only", "com.apple.security.files.user-selected.read-write", "com.apple.security.assets.movies.read-only", "com.apple.security.assets.movies.read-write"]
 	},
     {
         "mdmKey": "Microphone",
@@ -73,13 +76,14 @@
     {
         "mdmKey": "SystemPolicyNetworkVolumes",
 		"englishName": "Network Volumes",
-		"englishDescription": "Allows specified apps access to files on network volumes."
+		"englishDescription": "Allows specified apps access to files on network volumes.",
+        "entitlements": ["com.apple.security.files.user-selected.read-only", "com.apple.security.files.user-selected.read-write"]
 	},
     {
         "mdmKey": "Photos",
 		"englishName": "Photos",
 		"englishDescription": "Allows specified apps access to images managed by the Photos app in: /Users/username/Pictures/Photos Library Note: If the user put their photo library somewhere else, it won’t be protected from apps.",
-		"entitlements": ["com.apple.security.assets.pictures.read-only", "com.apple.security.assets.pictures.read-write"]
+		"entitlements": ["com.apple.security.assets.pictures.read-only", "com.apple.security.assets.pictures.read-write", "com.apple.security.files.user-selected.read-only", "com.apple.security.files.user-selected.read-write"]
 	},
     {
         "mdmKey": "PostEvent",
@@ -94,7 +98,8 @@
     {
         "mdmKey": "SystemPolicyRemovableVolumes",
 		"englishName": "Removable Volumes",
-		"englishDescription": "Allows specified apps access to files on removable volumes."
+		"englishDescription": "Allows specified apps access to files on removable volumes.",
+        "entitlements": ["com.apple.security.files.user-selected.read-only", "com.apple.security.files.user-selected.read-write"]
 	},
     {
         "mdmKey": "ScreenCapture",
@@ -112,11 +117,12 @@
         "mdmKey": "SystemPolicyAllFiles",
 		"englishName": "Full Disk Access",
 		"englishDescription": "Allows specified apps access to data like Mail, Messages, Safari, Home, Time Machine backups, and certain administrative settings for all users on the Mac.",
-		"entitlements": ["com.apple.security.files.all"]
+		"entitlements": ["com.apple.security.files.all", "com.apple.security.files.user-selected.read-only", "com.apple.security.files.user-selected.read-write"]
 	},
     {
         "mdmKey": "SystemPolicySysAdminFiles",
 		"englishName": "Administrator Files",
-		"englishDescription": "Allows specified apps access to some files used by system administrators."
+		"englishDescription": "Allows specified apps access to some files used by system administrators.",
+        "entitlements": ["com.apple.security.files.user-selected.read-only", "com.apple.security.files.user-selected.read-write"]
 	}
 ]
