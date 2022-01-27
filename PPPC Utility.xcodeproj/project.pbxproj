@@ -43,6 +43,10 @@
 		71061E54246106C800822D35 /* LoadExecutableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71061E53246106C800822D35 /* LoadExecutableError.swift */; };
 		B5E09548250BCCFC00A40409 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E09547250BCCFC00A40409 /* Alert.swift */; };
 		C0A85DB5279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */; };
+		C0E0383F27A30C7100A23FA2 /* PPPCServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */; };
+		C0E0384027A30C7100A23FA2 /* PPPCServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */; };
+		C0E0384227A30D1D00A23FA2 /* PPPCServices.json in Resources */ = {isa = PBXBuildFile; fileRef = C0E0384127A30D1D00A23FA2 /* PPPCServices.json */; };
+		C0E0384427A30D6B00A23FA2 /* PPPCServicesManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E0384327A30D6B00A23FA2 /* PPPCServicesManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +103,10 @@
 		97227C6726248CD7000F26C1 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B5E09547250BCCFC00A40409 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TestTCCUnsignedProfile-allLower.mobileconfig"; sourceTree = "<group>"; };
+		C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPCServiceInfo.swift; sourceTree = "<group>"; };
+		C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPCServicesManager.swift; sourceTree = "<group>"; };
+		C0E0384127A30D1D00A23FA2 /* PPPCServices.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PPPCServices.json; sourceTree = "<group>"; };
+		C0E0384327A30D6B00A23FA2 /* PPPCServicesManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPCServicesManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				5F90EBE32319992B00738D09 /* ModelTests.swift */,
+				C0E0384327A30D6B00A23FA2 /* PPPCServicesManagerTests.swift */,
 			);
 			path = ModelTests;
 			sourceTree = "<group>";
@@ -243,6 +252,7 @@
 				6EC409E1214D65BD00BE4F17 /* Assets.xcassets */,
 				6EC409E3214D65BD00BE4F17 /* Main.storyboard */,
 				6EC409E6214D65BD00BE4F17 /* Info.plist */,
+				C0E0384127A30D1D00A23FA2 /* PPPCServices.json */,
 				6E957309215557870002C30B /* PPPC Utility.entitlements */,
 			);
 			path = Resources;
@@ -251,13 +261,15 @@
 		6EC40A1D214EF87E00BE4F17 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6EC40A1B214EF87800BE4F17 /* SigningIdentity.swift */,
-				6EC40A13214DFB5800BE4F17 /* Model.swift */,
-				6EC40A0F214DE3B200BE4F17 /* Executable.swift */,
-				6EC409F4214D95D200BE4F17 /* TCCProfile.swift */,
 				6EB4582F214FFCCB00BE5749 /* AppleEventRule.swift */,
-				6E651CC423143890001CC974 /* ProfilesDescriptions.swift */,
+				6EC40A0F214DE3B200BE4F17 /* Executable.swift */,
 				71061E53246106C800822D35 /* LoadExecutableError.swift */,
+				6EC40A13214DFB5800BE4F17 /* Model.swift */,
+				C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */,
+				C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */,
+				6E651CC423143890001CC974 /* ProfilesDescriptions.swift */,
+				6EC40A1B214EF87800BE4F17 /* SigningIdentity.swift */,
+				6EC409F4214D95D200BE4F17 /* TCCProfile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -378,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EC409E2214D65BD00BE4F17 /* Assets.xcassets in Resources */,
+				C0E0384227A30D1D00A23FA2 /* PPPCServices.json in Resources */,
 				6EC409E5214D65BD00BE4F17 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +429,7 @@
 				5901A2772534DF1400A1CD2F /* ModelBuilder.swift in Sources */,
 				59798B82252D16310070A204 /* TCCProfileBuilder.swift in Sources */,
 				5F90EBE42319992B00738D09 /* ModelTests.swift in Sources */,
+				C0E0384427A30D6B00A23FA2 /* PPPCServicesManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,9 +445,11 @@
 				5F90EBDD2319934F00738D09 /* ArrayExtensions.swift in Sources */,
 				6EC40A14214DFB5800BE4F17 /* Model.swift in Sources */,
 				71061E54246106C800822D35 /* LoadExecutableError.swift in Sources */,
+				C0E0383F27A30C7100A23FA2 /* PPPCServiceInfo.swift in Sources */,
 				6EC40A1C214EF87800BE4F17 /* SigningIdentity.swift in Sources */,
 				6EC40A18214ECF2C00BE4F17 /* UploadViewController.swift in Sources */,
 				6E651CC523143890001CC974 /* ProfilesDescriptions.swift in Sources */,
+				C0E0384027A30C7100A23FA2 /* PPPCServicesManager.swift in Sources */,
 				6E651CCA231439CE001CC974 /* InfoButton.swift in Sources */,
 				6EC409F5214D95D200BE4F17 /* TCCProfile.swift in Sources */,
 				6EC40A12214DF8FE00BE4F17 /* SecurityWrapper.swift in Sources */,
