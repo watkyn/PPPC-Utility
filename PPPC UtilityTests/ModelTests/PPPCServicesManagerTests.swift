@@ -64,6 +64,18 @@ class PPPCServicesManagerTests: XCTestCase {
         XCTAssertEqual(actual, "Allows specified apps access to files on removable volumes.\n\nMDM Key: SystemPolicyRemovableVolumes")
     }
 
+    func testCameraIsDenyOnly() throws {
+        // given
+        let services = PPPCServicesManager()
+        let service = try XCTUnwrap(services.allServices["Camera"])
+
+        // when
+        let actual = try XCTUnwrap(service.denyOnly)
+
+        // then
+        XCTAssertTrue(actual)
+    }
+
     func testScreenCaptureAllowsStandardUsers() throws {
         // given
         let services = PPPCServicesManager()
