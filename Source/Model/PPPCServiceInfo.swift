@@ -1,10 +1,10 @@
 //
-//  FlippedClipView.swift
+//  PPPCServiceInfo.swift
 //  PPPC Utility
 //
 //  MIT License
 //
-//  Copyright (c) 2019 Jamf Software
+//  Copyright (c) 2022 Jamf Software
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,18 +25,22 @@
 //  SOFTWARE.
 //
 
-import Cocoa
+import Foundation
 
-class InfoButton: NSButton {
-    private var helpMessage: String = ""
+/// Holds the information about a single PPPC Service provided by Apple.
+struct PPPCServiceInfo: Decodable {
+    let mdmKey: String
+    let englishName: String
+    let englishDescription: String
+    let entitlements: [String]?
+    let denyOnly: Bool?
+    let allowStandardUsersMacOS11Plus: Bool?
 
-    func setHelpMessage(_ message: String?) {
-        self.helpMessage = message ?? ""
-    }
-
-    func showHelpMessage() {
-        NSHelpManager.shared.setContextHelp(NSAttributedString(string: helpMessage), for: self)
-        NSHelpManager.shared.showContextHelp(for: self, locationHint: NSEvent.mouseLocation)
-        NSHelpManager.shared.removeContextHelp(for: self)
+    var userHelp: String {
+        if let entitlements = entitlements {
+            return "\(englishDescription)\n\nMDM Key: \(mdmKey)\nRelated entitlements: \(entitlements)"
+        } else {
+            return "\(englishDescription)\n\nMDM Key: \(mdmKey)"
+        }
     }
 }

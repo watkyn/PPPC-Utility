@@ -1,10 +1,10 @@
 //
-//  FlippedClipView.swift
+//  PPPCServicesManager.swift
 //  PPPC Utility
 //
 //  MIT License
 //
-//  Copyright (c) 2019 Jamf Software
+//  Copyright (c) 2022 Jamf Software
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,18 +25,34 @@
 //  SOFTWARE.
 //
 
-import Cocoa
+import Foundation
 
-class InfoButton: NSButton {
-    private var helpMessage: String = ""
+class PPPCServicesManager {
+    typealias MDMServiceKey = String
 
-    func setHelpMessage(_ message: String?) {
-        self.helpMessage = message ?? ""
-    }
+    static let shared = PPPCServicesManager()
 
-    func showHelpMessage() {
-        NSHelpManager.shared.setContextHelp(NSAttributedString(string: helpMessage), for: self)
-        NSHelpManager.shared.showContextHelp(for: self, locationHint: NSEvent.mouseLocation)
-        NSHelpManager.shared.removeContextHelp(for: self)
+    let allServices: [MDMServiceKey: PPPCServiceInfo]
+
+    init() {
+        var hashed = [MDMServiceKey: PPPCServiceInfo]()
+
+        do {
+            guard let dataURL = Bundle.main.url(forResource: "PPPCServices", withExtension: "json") else {
+                throw CocoaError(.fileNoSuchFile)
+            }
+
+            let data = try Data(contentsOf: dataURL)
+            let decoder = JSONDecoder()
+            let loadedServices = try decoder.decode([PPPCServiceInfo].self, from: data)
+
+            loadedServices.forEach { service in
+                hashed[service.mdmKey] = service
+            }
+        } catch {
+            print("Error loading PPPCServices.json: \(error)")
+        }
+
+        allServices = hashed
     }
 }
