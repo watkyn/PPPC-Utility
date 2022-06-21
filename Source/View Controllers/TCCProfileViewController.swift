@@ -215,7 +215,7 @@ class TCCProfileViewController: NSViewController {
     func promptForExecutables(_ block: @escaping (Executable) -> Void) {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = true
-        panel.allowedFileTypes = [ kUTTypeBundle, kUTTypeExecutable ] as [String]
+        panel.allowedFileTypes = [ kUTTypeBundle, kUTTypeUnixExecutable ] as [String]
         panel.directoryURL = URL(fileURLWithPath: "/Applications", isDirectory: true)
         guard let window = self.view.window else {
             return
@@ -243,7 +243,7 @@ class TCCProfileViewController: NSViewController {
     }
 
     let pasteboardOptions: [NSPasteboard.ReadingOptionKey: Any] = [
-        .urlReadingContentsConformToTypes: [ kUTTypeBundle, kUTTypeExecutable ]
+        .urlReadingContentsConformToTypes: [ kUTTypeBundle, kUTTypeUnixExecutable ]
     ]
 
     @IBAction func checkForAuthorizationFeaturesUsed(_ sender: NSPopUpButton) {
