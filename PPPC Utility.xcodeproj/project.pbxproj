@@ -109,6 +109,7 @@
 		C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPCServicesManager.swift; sourceTree = "<group>"; };
 		C0E0384127A30D1D00A23FA2 /* PPPCServices.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PPPCServices.json; sourceTree = "<group>"; };
 		C0E0384327A30D6B00A23FA2 /* PPPCServicesManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPCServicesManagerTests.swift; sourceTree = "<group>"; };
+		C0EE9A7C28639BF800738B6B /* TestTCCProfileForJamfProAPI.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestTCCProfileForJamfProAPI.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +196,7 @@
 				5F95AE2A2315B172002E0A22 /* TestTCCUnsignedProfile-Broken.mobileconfig */,
 				5F95AE2C2315B172002E0A22 /* TestTCCUnsignedProfile-Empty.mobileconfig */,
 				5F95AE292315B172002E0A22 /* TestTCCUnsignedProfile.mobileconfig */,
+				C0EE9A7C28639BF800738B6B /* TestTCCProfileForJamfProAPI.txt */,
 				5F95AE252315A7CB002E0A22 /* TCCProfileImporterTests.swift */,
 				59206D6825265F0C00B94795 /* TCCProfileTests.swift */,
 			);
@@ -384,6 +386,7 @@
 				5F95AE312315B172002E0A22 /* TestTCCUnsignedProfile-Empty.mobileconfig in Resources */,
 				5F95AE2F2315B172002E0A22 /* TestTCCUnsignedProfile-Broken.mobileconfig in Resources */,
 				C0A85DB5279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig in Resources */,
+				C0EE9A7D28639BF800738B6B /* TestTCCProfileForJamfProAPI.txt in Resources */,
 				5F95AE302315B172002E0A22 /* TestTCCProfileSigned-Broken.mobileconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
