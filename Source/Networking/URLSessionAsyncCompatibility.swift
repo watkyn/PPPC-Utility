@@ -1,11 +1,11 @@
-/**
-*  URLSessionAsyncCompatibility.swift
-*  Based on AsyncCompatibilityKit's URLSession+Async.swift which is
-*  Copyright (c) John Sundell 2021
-*  MIT license, see LICENSE.md file for details
-*
-*  Change from AsyncCompatibilityKit: Modified the `@available` line to be deprecated in macOS 12 instead of iOS 15.
-*/
+//
+// URLSessionAsyncCompatibility.swift
+//  Based on AsyncCompatibilityKit's URLSession+Async.swift which is
+//  Copyright (c) John Sundell 2021
+//  MIT license, see LICENSE.md file for details
+//
+//  Change from AsyncCompatibilityKit: Modified the `@available` line to be deprecated in macOS 12 instead of iOS 15.
+//
 
 import Foundation
 
@@ -21,8 +21,7 @@ public extension URLSession {
     }
 
     /// Start a data task with a `URLRequest` using async/await.
-    /// - parameter request: The `URLReque
-    /// st` that the data task should perform.
+    /// - parameter request: The `URLRequest` that the data task should perform.
     /// - returns: A tuple containing the binary `Data` that was downloaded,
     ///   as well as a `URLResponse` representing the server's response.
     /// - throws: Any error encountered while performing the data task.
