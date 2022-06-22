@@ -41,6 +41,8 @@
 		6EC40A1C214EF87800BE4F17 /* SigningIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC40A1B214EF87800BE4F17 /* SigningIdentity.swift */; };
 		71061E54246106C800822D35 /* LoadExecutableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71061E53246106C800822D35 /* LoadExecutableError.swift */; };
 		B5E09548250BCCFC00A40409 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E09547250BCCFC00A40409 /* Alert.swift */; };
+		C01BEDBA28636F57001B0B3B /* SemanticVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01BEDB928636F57001B0B3B /* SemanticVersionTests.swift */; };
+		C03270BA28636330008B38E0 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270B928636330008B38E0 /* SemanticVersion.swift */; };
 		C0A85DB5279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */; };
 		C0E0383F27A30C7100A23FA2 /* PPPCServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */; };
 		C0E0384027A30C7100A23FA2 /* PPPCServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */; };
@@ -100,6 +102,8 @@
 		71061E53246106C800822D35 /* LoadExecutableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadExecutableError.swift; sourceTree = "<group>"; };
 		97227C6726248CD7000F26C1 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		B5E09547250BCCFC00A40409 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		C01BEDB928636F57001B0B3B /* SemanticVersionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemanticVersionTests.swift; sourceTree = "<group>"; };
+		C03270B928636330008B38E0 /* SemanticVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
 		C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TestTCCUnsignedProfile-allLower.mobileconfig"; sourceTree = "<group>"; };
 		C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPCServiceInfo.swift; sourceTree = "<group>"; };
 		C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPCServicesManager.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 			children = (
 				5F90EBE32319992B00738D09 /* ModelTests.swift */,
 				C0E0384327A30D6B00A23FA2 /* PPPCServicesManagerTests.swift */,
+				C01BEDB928636F57001B0B3B /* SemanticVersionTests.swift */,
 			);
 			path = ModelTests;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 				C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */,
 				C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */,
 				6EC40A1B214EF87800BE4F17 /* SigningIdentity.swift */,
+				C03270B928636330008B38E0 /* SemanticVersion.swift */,
 				6EC409F4214D95D200BE4F17 /* TCCProfile.swift */,
 			);
 			path = Model;
@@ -422,6 +428,7 @@
 			files = (
 				34DED4D423FDCAFD00C53FB9 /* SwiftyCMSDecoder.swift in Sources */,
 				5F95AE262315A7CB002E0A22 /* TCCProfileImporterTests.swift in Sources */,
+				C01BEDBA28636F57001B0B3B /* SemanticVersionTests.swift in Sources */,
 				59206D6925265F0C00B94795 /* TCCProfileTests.swift in Sources */,
 				5901A2772534DF1400A1CD2F /* ModelBuilder.swift in Sources */,
 				59798B82252D16310070A204 /* TCCProfileBuilder.swift in Sources */,
@@ -457,6 +464,7 @@
 				6EC40A16214ECF1E00BE4F17 /* SaveViewController.swift in Sources */,
 				6EB45830214FFCCB00BE5749 /* AppleEventRule.swift in Sources */,
 				5F90EBDF2319970000738D09 /* TCCProfileImportError.swift in Sources */,
+				C03270BA28636330008B38E0 /* SemanticVersion.swift in Sources */,
 				6E651CC82314397D001CC974 /* FlippedClipView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
