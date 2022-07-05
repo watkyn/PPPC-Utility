@@ -87,6 +87,11 @@ class UploadViewController: NSViewController {
             Alert().display(header: "Attention:", message: "Username or password not set")
             return
         }
+        guard username.firstIndex(of: ":") == nil else {
+            print("Username cannot contain a colon")
+            Alert().display(header: "Attention:", message: "Username cannot contain a colon")
+            return
+        }
 
         let model = Model.shared
         let profile = model.exportProfile(organization: organizationLabel.stringValue,
@@ -105,7 +110,22 @@ class UploadViewController: NSViewController {
                 siteIdAndName = (siteId, siteName)
             }
         }
-        JamfProClient(jamfProServerLabel.stringValue, username, password, siteIdAndName).uploadProfile(profile, signingIdentity: identity) { (success) in
+
+        let authManager = NetworkAuthManager(username: username, password: password)
+        let networking = JamfProAPIClient(serverUrlString: jamfProServerLabel.stringValue, tokenManager: authManager)
+        Task {
+            let success: Bool
+            do {
+                let profileData = try profile.jamfProAPIData(signingIdentity: identity, site: siteIdAndName)
+
+                _ = try await networking.upload(computerConfigProfile: profileData)
+
+                success = true
+            } catch {
+                print("Error creating or upload profile: \(error)")
+                success = false
+            }
+
             DispatchQueue.main.async {
                 self.handleUploadCompletion(success: success)
             }
@@ -121,49 +141,44 @@ class UploadViewController: NSViewController {
             }
             return
         }
+        guard username.firstIndex(of: ":") == nil else {
+            print("Username cannot contain a colon")
+            Alert().display(header: "Attention:", message: "Username cannot contain a colon")
+            DispatchQueue.main.async {
+                self.handleCheckConnectionFailure(enforceSigning: nil)
+            }
+            return
+        }
 
         print("Checking connection")
         self.networkOperationsTitle = "Checking Jamf Pro server"
 
-        let client = JamfProClient(jamfProServerLabel.stringValue, username, password)
+        let authManager = NetworkAuthManager(username: username, password: password)
+        let networking = JamfProAPIClient(serverUrlString: jamfProServerLabel.stringValue, tokenManager: authManager)
+        Task {
+            do {
+                let version = try await networking.getJamfProVersion()
 
-        client.getJamfProVersionLegacy { (connectionSuccessful, possibleVersion) in
-            if !connectionSuccessful {
+                // Must sign if Jamf Pro is less than v10.7.1
+                let mustSign = (version.semantic() < SemanticVersion(major: 10, minor: 7, patch: 1))
+
+                let organizationName = try await networking.getOrganizationName()
+
+                DispatchQueue.main.async {
+                    self.handleCheckConnection(enforceSigning: mustSign,
+                                               organization: organizationName)
+                }
+            } catch is AuthError {
+                print("Invalid username/password")
+                Alert().display(header: "Attention:", message: "Invalid username/password")
+                DispatchQueue.main.async {
+                    self.handleCheckConnectionFailure(enforceSigning: nil)
+                }
+            } catch {
                 print("Jamf Pro server is unavailable")
                 Alert().display(header: "Attention:", message: "Jamf Pro server is unavailable")
                 DispatchQueue.main.async {
                     self.handleCheckConnectionFailure(enforceSigning: nil)
-                }
-                return
-            }
-            var mustSign: Bool
-            if let version = possibleVersion {
-                print("Jamf Pro Server: \(version.major).\(version.minor).\(version.patch)")
-                mustSign = version.major < 10
-                        || version.major == 10 && version.minor < 7
-                        || version.major == 10 && version.minor == 7 && version.patch == 0
-            } else {
-                // nil means version >= 10.23 so signing not required
-                print("Jamf Pro Server version >= 10.23")
-                mustSign = false
-            }
-            client.getOrganizationName { (statusCode, orgName) in
-                if statusCode == 401 {
-                    print("Invalid username/password")
-                    Alert().display(header: "Attention:", message: "Invalid username/password")
-                    DispatchQueue.main.async {
-                        self.handleCheckConnectionFailure(enforceSigning: mustSign)
-                    }
-                } else if let name = orgName {
-                    DispatchQueue.main.async {
-                        self.handleCheckConnection(enforceSigning: mustSign,
-                                                   organization: name)
-                    }
-                } else {
-                    print("Unable to read organization name")
-                    DispatchQueue.main.async {
-                        self.handleCheckConnectionFailure(enforceSigning: mustSign)
-                    }
                 }
             }
         }
