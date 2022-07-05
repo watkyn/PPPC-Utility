@@ -44,8 +44,9 @@
 		C03270BA28636330008B38E0 /* SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270B928636330008B38E0 /* SemanticVersion.swift */; };
 		C03270C028636397008B38E0 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270BE28636397008B38E0 /* Networking.swift */; };
 		C03270C128636397008B38E0 /* JamfProAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03270BF28636397008B38E0 /* JamfProAPIClient.swift */; };
+		C07961E228749A36007B98A7 /* TokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07961E128749A36007B98A7 /* TokenTests.swift */; };
+		C07961E428749A51007B98A7 /* NetworkAuthManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07961E328749A51007B98A7 /* NetworkAuthManagerTests.swift */; };
 		C0A85DB5279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */; };
-		C0C2FC962863C9CB00DE8493 /* TokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C2FC952863C9CB00DE8493 /* TokenTests.swift */; };
 		C0E0383F27A30C7100A23FA2 /* PPPCServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */; };
 		C0E0384027A30C7100A23FA2 /* PPPCServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */; };
 		C0E0384227A30D1D00A23FA2 /* PPPCServices.json in Resources */ = {isa = PBXBuildFile; fileRef = C0E0384127A30D1D00A23FA2 /* PPPCServices.json */; };
@@ -111,8 +112,9 @@
 		C03270B928636330008B38E0 /* SemanticVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemanticVersion.swift; sourceTree = "<group>"; };
 		C03270BE28636397008B38E0 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		C03270BF28636397008B38E0 /* JamfProAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JamfProAPIClient.swift; sourceTree = "<group>"; };
+		C07961E128749A36007B98A7 /* TokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenTests.swift; sourceTree = "<group>"; };
+		C07961E328749A51007B98A7 /* NetworkAuthManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAuthManagerTests.swift; sourceTree = "<group>"; };
 		C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TestTCCUnsignedProfile-allLower.mobileconfig"; sourceTree = "<group>"; };
-		C0C2FC952863C9CB00DE8493 /* TokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenTests.swift; sourceTree = "<group>"; };
 		C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPCServiceInfo.swift; sourceTree = "<group>"; };
 		C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPCServicesManager.swift; sourceTree = "<group>"; };
 		C0E0384127A30D1D00A23FA2 /* PPPCServices.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PPPCServices.json; sourceTree = "<group>"; };
@@ -193,14 +195,14 @@
 			children = (
 				5901A2752534DEFF00A1CD2F /* Helpers */,
 				5F90EBE22319991600738D09 /* ModelTests */,
-				5F95AE272315B069002E0A22 /* TCCProfileImporter */,
-				C0C2FC952863C9CB00DE8493 /* TokenTests.swift */,
+				5F95AE272315B069002E0A22 /* TCCProfileImporterTests */,
+				C07961E028749A36007B98A7 /* NetworkingTests */,
 				5F95AE1F2315A6AD002E0A22 /* Info.plist */,
 			);
 			path = "PPPC UtilityTests";
 			sourceTree = "<group>";
 		};
-		5F95AE272315B069002E0A22 /* TCCProfileImporter */ = {
+		5F95AE272315B069002E0A22 /* TCCProfileImporterTests */ = {
 			isa = PBXGroup;
 			children = (
 				5F95AE2B2315B172002E0A22 /* TestTCCProfileSigned-Broken.mobileconfig */,
@@ -212,7 +214,7 @@
 				5F95AE252315A7CB002E0A22 /* TCCProfileImporterTests.swift */,
 				59206D6825265F0C00B94795 /* TCCProfileTests.swift */,
 			);
-			path = TCCProfileImporter;
+			path = TCCProfileImporterTests;
 			sourceTree = "<group>";
 		};
 		6E651CC623143969001CC974 /* Views */ = {
@@ -312,6 +314,15 @@
 				C0EE9A822863BEEB00738B6B /* URLSessionAsyncCompatibility.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		C07961E028749A36007B98A7 /* NetworkingTests */ = {
+			isa = PBXGroup;
+			children = (
+				C07961E328749A51007B98A7 /* NetworkAuthManagerTests.swift */,
+				C07961E128749A36007B98A7 /* TokenTests.swift */,
+			);
+			path = NetworkingTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,8 +464,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0C2FC962863C9CB00DE8493 /* TokenTests.swift in Sources */,
+				C07961E228749A36007B98A7 /* TokenTests.swift in Sources */,
 				34DED4D423FDCAFD00C53FB9 /* SwiftyCMSDecoder.swift in Sources */,
+				C07961E428749A51007B98A7 /* NetworkAuthManagerTests.swift in Sources */,
 				5F95AE262315A7CB002E0A22 /* TCCProfileImporterTests.swift in Sources */,
 				C01BEDBA28636F57001B0B3B /* SemanticVersionTests.swift in Sources */,
 				59206D6925265F0C00B94795 /* TCCProfileTests.swift in Sources */,

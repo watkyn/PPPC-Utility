@@ -40,6 +40,52 @@ class JamfProAPIClient: Networking {
         return try await loadBasicAuthorized(request: request)
     }
 
+    // MARK: - Requests with fallback auth
+
+    /// Make a network request and decode the response using bearer auth if possible, falling back to basic auth if needed.
+    /// - Parameter request: The `URLRequest` to make
+    /// - Returns: The decoded response.
+    func load<T: Decodable>(request: URLRequest) async throws -> T {
+        let result: T
+
+        if await authManager.bearerAuthSupported() {
+            do {
+                result = try await loadBearerAuthorized(request: request)
+            } catch AuthError.bearerAuthNotSupported {
+                // Note that `authManager` will automatically return false from future calls to `bearerAuthSupported()`
+                // Possibly we're talking to Jamf Pro 10.34.x or lower and we can retry with Basic Auth
+                result = try await loadBasicAuthorized(request: request)
+            }
+        } else {
+            result = try await loadBasicAuthorized(request: request)
+        }
+
+        return result
+    }
+
+    /// Send a network request and return the response using bearer auth if possible, falling back to basic auth if needed.
+    /// - Parameter request: The `URLRequest` to make
+    /// - Returns: The raw data of a successful network response.
+    func send(request: URLRequest) async throws -> Data {
+        let result: Data
+
+        if await authManager.bearerAuthSupported() {
+            do {
+                result = try await sendBearerAuthorized(request: request)
+            } catch AuthError.bearerAuthNotSupported {
+                // Note that authManager will automatically return false from future calls to ``bearerAuthSupported()``
+                // Possibly we're talking to Jamf Pro 10.34.x or lower and we can retry with Basic Auth
+                result = try await sendBasicAuthorized(request: request)
+            }
+        } else {
+            result = try await sendBasicAuthorized(request: request)
+        }
+
+        return result
+    }
+
+    // MARK: - Useful API endpoints
+
     func getOrganizationName() async throws -> String {
         let endpoint = "JSSResource/activationcode"
         var request = try url(forEndpoint: endpoint)
@@ -48,12 +94,7 @@ class JamfProAPIClient: Networking {
         request.setValue(applicationJson, forHTTPHeaderField: "Accept")
 
         let info: ActivationCode
-        do {
-            info = try await loadBearerAuthorized(request: request)
-        } catch AuthError.invalidToken {
-            // Possibly we're talking to Jamf Pro 10.34.x or lower and we can retry with Basic Auth
-            info = try await loadBasicAuthorized(request: request)
-        }
+        info = try await load(request: request)
 
         return info.activationCode.organizationName
     }
@@ -67,7 +108,7 @@ class JamfProAPIClient: Networking {
 
         let info: JamfProVersion
         do {
-            info = try await loadBearerAuthorized(request: request)
+            info = try await load(request: request)
         } catch is NetworkingError {
             // Possibly we are talking to Jamf Pro v10.22 or lower and we can grab the version from a meta tag on the login page.
             let simpleRequest = try url(forEndpoint: "")
@@ -87,11 +128,6 @@ class JamfProAPIClient: Networking {
         request.setValue("text/xml", forHTTPHeaderField: "Content-Type")
         request.setValue("text/xml", forHTTPHeaderField: "Accept")
 
-        do {
-            _ = try await sendBearerAuthorized(request: request)
-        } catch AuthError.invalidToken {
-            // Possibly we're talking to Jamf Pro 10.34.x or lower and we can retry with Basic Auth
-            _ = try await sendBasicAuthorized(request: request)
-        }
+        _ = try await send(request: request)
     }
 }

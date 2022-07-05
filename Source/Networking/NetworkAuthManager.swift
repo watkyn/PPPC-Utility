@@ -27,9 +27,16 @@
 
 import Foundation
 
-enum AuthError: Error {
+/// API authentication errors
+enum AuthError: Error, Equatable {
+    /// When using a bearer token but the bearer token is not accepted by the server for the actual network call.
     case invalidToken
+
+    /// When the username/password provided are empty or do not work when used with the server.
     case invalidUsernamePassword
+
+    /// The server does not support Bearer Authentication for the API; this happens for Jamf Pro less than v10.34.
+    case bearerAuthNotSupported
 }
 
 /// This actor ensures that only one token refresh occurs at the same time.
@@ -39,6 +46,8 @@ actor NetworkAuthManager {
 
     private var currentToken: Token?
     private var refreshTask: Task<Token, Error>?
+
+    private var supportsBearerAuth = true
 
     init(username: String, password: String) {
         self.username = username
@@ -69,11 +78,18 @@ actor NetworkAuthManager {
         let task = Task { () throws -> Token in
             defer { refreshTask = nil }
 
-            let newToken = try await networking.getBearerToken()
-
-            currentToken = newToken
-
-            return newToken
+            do {
+                let newToken = try await networking.getBearerToken()
+                currentToken = newToken
+                return newToken
+            } catch NetworkingError.serverResponse(let responseCode, _) where responseCode == 404 {
+                // If we got a 404 while trying to get a bearer token the server doesn't support bearer tokens.
+                supportsBearerAuth = false
+                throw AuthError.bearerAuthNotSupported
+            } catch NetworkingError.serverResponse(let responseCode, _) where responseCode == 401 {
+                // If we got a 401 while trying to get a bearer token the username/password was bad.
+                throw AuthError.invalidUsernamePassword
+            }
         }
 
         refreshTask = task
@@ -81,12 +97,22 @@ actor NetworkAuthManager {
         return try await task.value
     }
 
+    /// If bearer authentication is not actually supported, after the first network call trying to use bearer auth this will return false.
+    ///
+    /// The default is that bearer authentication is supported.  After the first network call attempting to use bearer auth, if the
+    /// server does not actually support it this will return false.
+    /// - Returns: True if bearer auth is supported.
+    func bearerAuthSupported() async -> Bool {
+        return supportsBearerAuth
+    }
+
     /// Properly encodes the username and password for use in Basic authentication.
     ///
     /// This doesn't mutate any state and only accesses `let` constants so it doesn't need to be actor isolated.
     /// - Returns: The encoded data string for use with Basic Auth.
     nonisolated func basicAuthString() throws -> String {
-        guard let result = "\(username):\(password)".data(using: .utf8)?.base64EncodedString(),
+        guard !username.isEmpty && !password.isEmpty,
+              let result = "\(username):\(password)".data(using: .utf8)?.base64EncodedString(),
               !result.isEmpty else {
             throw AuthError.invalidUsernamePassword
         }

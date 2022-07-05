@@ -87,6 +87,11 @@ class UploadViewController: NSViewController {
             Alert().display(header: "Attention:", message: "Username or password not set")
             return
         }
+        guard username.firstIndex(of: ":") == nil else {
+            print("Username cannot contain a colon")
+            Alert().display(header: "Attention:", message: "Username cannot contain a colon")
+            return
+        }
 
         let model = Model.shared
         let profile = model.exportProfile(organization: organizationLabel.stringValue,
@@ -131,6 +136,14 @@ class UploadViewController: NSViewController {
         guard let username = username, let password = password else {
             print("Username or password not set")
             Alert().display(header: "Attention:", message: "Username or password not set")
+            DispatchQueue.main.async {
+                self.handleCheckConnectionFailure(enforceSigning: nil)
+            }
+            return
+        }
+        guard username.firstIndex(of: ":") == nil else {
+            print("Username cannot contain a colon")
+            Alert().display(header: "Attention:", message: "Username cannot contain a colon")
             DispatchQueue.main.async {
                 self.handleCheckConnectionFailure(enforceSigning: nil)
             }

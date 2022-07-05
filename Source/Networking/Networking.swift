@@ -27,15 +27,25 @@
 
 import Foundation
 
-enum NetworkingError: Error {
+/// Problems at the networking error throw this type of error.
+enum NetworkingError: Error, Equatable {
+    /// The server URL cannot be converted into a standard URL.
+    ///
+    /// The associated value is the given server URL.
     case badServerUrl(String)
+
+    /// If the server returns anything outside of 200...299 this is the error thrown.
+    ///
+    /// The first associated value is the HTTP response code.  The second associated value is the full URL that was attempted.
     case serverResponse(Int, String)
+
+    /// This is thrown if a subclass does not implement ``getBearerToken()`` and then attempts to use bearer tokens.
     case unimplemented
 }
 
 class Networking {
     let authManager: NetworkAuthManager
-    var serverUrlString: String
+    let serverUrlString: String
 
     init(serverUrlString: String, tokenManager: NetworkAuthManager) {
         self.serverUrlString = serverUrlString
