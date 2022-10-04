@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 N/A
 
-## [1.5.0] - 2021-08-11
+## [1.5.0] - 2022-10-04
 
 ### Added
 - Help buttons now list related codesigning entitlements ([Issue #105](https://github.com/jamf/PPPC-Utility/issues/105)) [@macblazer](https://github.com/macblazer).
