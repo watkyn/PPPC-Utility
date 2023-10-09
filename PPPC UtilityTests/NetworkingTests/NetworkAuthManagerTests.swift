@@ -38,12 +38,16 @@ class MockNetworking: Networking {
         super.init(serverUrlString: "https://example.com", tokenManager: tokenManager)
     }
 
-    override func getBearerToken() async throws -> Token {
+    override func getBearerToken(authInfo: AuthenticationInfo) async throws -> Token {
         if let error = errorToThrow {
             throw error
         }
 
-        return Token(value: "xyz", expireTime: "2950-06-22T22:05:58.81Z")
+		let formatter = ISO8601DateFormatter()
+		formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+		let expiration = try XCTUnwrap(formatter.date(from: "2950-06-22T22:05:58.81Z"))
+
+		return Token(value: "xyz", expiresAt: expiration)
     }
 }
 

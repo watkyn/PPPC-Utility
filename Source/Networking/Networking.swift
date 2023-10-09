@@ -4,7 +4,7 @@
 //
 //  MIT License
 //
-//  Copyright (c) 2022 Jamf Software
+//  Copyright (c) 2023 Jamf Software
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,7 @@ enum NetworkingError: Error, Equatable {
     /// The first associated value is the HTTP response code.  The second associated value is the full URL that was attempted.
     case serverResponse(Int, String)
 
-    /// This is thrown if a subclass does not implement ``getBearerToken()`` and then attempts to use bearer tokens.
+    /// This is thrown if a subclass does not implement ``getBearerToken(authInfo:)`` and then attempts to use bearer tokens.
     case unimplemented
 }
 
@@ -54,7 +54,7 @@ class Networking {
 
     /// Subclasses must override this to do a network call to return a bearer token.
     /// - Returns: A token
-    func getBearerToken() async throws -> Token {
+    func getBearerToken(authInfo: AuthenticationInfo) async throws -> Token {
         throw NetworkingError.unimplemented
     }
 
@@ -71,7 +71,27 @@ class Networking {
         return URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 45.0)
     }
 
-    /// Sends a `URLRequest` and decodes a response to a Basic Auth protected endpoint.
+	/// Sends a `URLRequest` and decodes a response to an endpoint.
+	/// - Parameter request: A request that already has authorization info.
+	/// - Returns: The result.
+	func loadPreAuthorized<T: Decodable>(request: URLRequest) async throws -> T {
+		let (data, urlResponse) = try await URLSession.shared.data(for: request)
+
+		if let httpResponse = urlResponse as? HTTPURLResponse {
+			if httpResponse.statusCode == 401 {
+				throw AuthError.invalidUsernamePassword
+			} else if !(200...299).contains(httpResponse.statusCode) {
+				throw NetworkingError.serverResponse(httpResponse.statusCode, request.url?.absoluteString ?? "")
+			}
+		}
+
+		let decoder = JSONDecoder()
+		let response = try decoder.decode(T.self, from: data)
+
+		return response
+	}
+
+	/// Sends a `URLRequest` and decodes a response to a Basic Auth protected endpoint.
     /// - Parameter request: A request that does not yet include authorization info.
     /// - Returns: The result.
     func loadBasicAuthorized<T: Decodable>(request: URLRequest) async throws -> T {

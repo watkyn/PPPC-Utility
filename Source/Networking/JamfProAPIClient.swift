@@ -4,7 +4,7 @@
 //
 //  MIT License
 //
-//  Copyright (c) 2022 Jamf Software
+//  Copyright (c) 2023 Jamf Software
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -30,14 +30,28 @@ import Foundation
 class JamfProAPIClient: Networking {
     let applicationJson = "application/json"
 
-    override func getBearerToken() async throws -> Token {
-        let endpoint = "api/v1/auth/token"
-        var request = try url(forEndpoint: endpoint)
+    override func getBearerToken(authInfo: AuthenticationInfo) async throws -> Token {
+		switch authInfo {
+		case .basicAuth:
+			let endpoint = "api/v1/auth/token"
+			var request = try url(forEndpoint: endpoint)
 
-        request.httpMethod = "POST"
-        request.setValue(applicationJson, forHTTPHeaderField: "Accept")
+			request.httpMethod = "POST"
+			request.setValue(applicationJson, forHTTPHeaderField: "Accept")
 
-        return try await loadBasicAuthorized(request: request)
+			return try await loadBasicAuthorized(request: request)
+		case .clientCreds(let id, let secret):
+			let endpoint = "api/oauth/token"
+			var request = try url(forEndpoint: endpoint)
+
+			request.httpMethod = "POST"
+			request.setValue(applicationJson, forHTTPHeaderField: "Accept")
+			request.setValue("client_credentials", forHTTPHeaderField: "grant_type")
+			request.setValue(id, forHTTPHeaderField: "client_id")
+			request.setValue(secret, forHTTPHeaderField: "client_secret")
+
+			return try await loadPreAuthorized(request: request)
+		}
     }
 
     // MARK: - Requests with fallback auth

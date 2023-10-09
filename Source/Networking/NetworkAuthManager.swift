@@ -4,7 +4,7 @@
 //
 //  MIT License
 //
-//  Copyright (c) 2022 Jamf Software
+//  Copyright (c) 2023 Jamf Software
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -39,10 +39,16 @@ enum AuthError: Error, Equatable {
     case bearerAuthNotSupported
 }
 
+/// Support two main ways to authenticate to the Jamf Pro API.
+enum AuthenticationInfo {
+	case basicAuth(username: String, password: String)
+
+	case clientCreds(id: String, secret: String)
+}
+
 /// This actor ensures that only one token refresh occurs at the same time.
 actor NetworkAuthManager {
-    private let username: String
-    private let password: String
+	private let authInfo: AuthenticationInfo
 
     private var currentToken: Token?
     private var refreshTask: Task<Token, Error>?
@@ -50,11 +56,14 @@ actor NetworkAuthManager {
     private var supportsBearerAuth = true
 
     init(username: String, password: String) {
-        self.username = username
-        self.password = password
+		authInfo = .basicAuth(username: username, password: password)
     }
 
-    func validToken(networking: Networking) async throws -> Token {
+	init(clientId: String, clientSecret: String) {
+		authInfo = .clientCreds(id: clientId, secret: clientSecret)
+	}
+
+	func validToken(networking: Networking) async throws -> Token {
         if let task = refreshTask {
             // A refresh is already running; we'll use those results when ready.
             return try await task.value
@@ -79,7 +88,7 @@ actor NetworkAuthManager {
             defer { refreshTask = nil }
 
             do {
-                let newToken = try await networking.getBearerToken()
+				let newToken = try await networking.getBearerToken(authInfo: authInfo)
                 currentToken = newToken
                 return newToken
             } catch NetworkingError.serverResponse(let responseCode, _) where responseCode == 404 {
@@ -111,30 +120,12 @@ actor NetworkAuthManager {
     /// This doesn't mutate any state and only accesses `let` constants so it doesn't need to be actor isolated.
     /// - Returns: The encoded data string for use with Basic Auth.
     nonisolated func basicAuthString() throws -> String {
-        guard !username.isEmpty && !password.isEmpty,
+		guard case .basicAuth(let username, let password) = authInfo,
+			  !username.isEmpty && !password.isEmpty,
               let result = "\(username):\(password)".data(using: .utf8)?.base64EncodedString(),
               !result.isEmpty else {
             throw AuthError.invalidUsernamePassword
         }
         return result
-    }
-}
-
-struct Token: Decodable {
-    let value: String
-    let expireTime: String
-
-    var isValid: Bool {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        if let date = formatter.date(from: expireTime) {
-            return date > Date()
-        }
-        return false
-    }
-
-    enum CodingKeys: String, CodingKey {
-        case value = "token"
-        case expireTime = "expires"
     }
 }
