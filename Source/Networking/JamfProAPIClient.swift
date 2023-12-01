@@ -41,20 +41,35 @@ class JamfProAPIClient: Networking {
 
 			return try await loadBasicAuthorized(request: request)
 		case .clientCreds(let id, let secret):
-			let endpoint = "api/oauth/token"
-			var request = try url(forEndpoint: endpoint)
-
-			request.httpMethod = "POST"
-			request.setValue(applicationJson, forHTTPHeaderField: "Accept")
-			request.setValue("client_credentials", forHTTPHeaderField: "grant_type")
-			request.setValue(id, forHTTPHeaderField: "client_id")
-			request.setValue(secret, forHTTPHeaderField: "client_secret")
+			let request = try oauthTokenRequest(clientId: id, clientSecret: secret)
 
 			return try await loadPreAuthorized(request: request)
 		}
     }
 
-    // MARK: - Requests with fallback auth
+	/// Creates the OAuth client credentials token request
+	/// - Parameters:
+	///   - clientId: The client ID
+	///   - clientSecret: The client secret
+	/// - Returns: A `URLRequest` that is ready to send to acquire an OAuth token.
+	func oauthTokenRequest(clientId: String, clientSecret: String) throws -> URLRequest {
+		let endpoint = "api/oauth/token"
+		var request = try url(forEndpoint: endpoint)
+
+		request.httpMethod = "POST"
+		request.setValue(applicationJson, forHTTPHeaderField: "Accept")
+
+		var components = URLComponents()
+		components.queryItems = [URLQueryItem(name: "grant_type", value: "client_credentials"),
+								 URLQueryItem(name: "client_id", value: clientId),
+								 URLQueryItem(name: "client_secret", value: clientSecret)]
+
+		request.httpBody = components.percentEncodedQuery?.data(using: .utf8)
+
+		return request
+	}
+
+	// MARK: - Requests with fallback auth
 
     /// Make a network request and decode the response using bearer auth if possible, falling back to basic auth if needed.
     /// - Parameter request: The `URLRequest` to make
@@ -100,6 +115,10 @@ class JamfProAPIClient: Networking {
 
     // MARK: - Useful API endpoints
 
+	/// Reads the Jamf Pro organization name
+	///
+	/// Requires "Read Activation Code" permission in the API
+	/// - Parameter profileData: The prepared profile data
     func getOrganizationName() async throws -> String {
         let endpoint = "JSSResource/activationcode"
         var request = try url(forEndpoint: endpoint)
@@ -113,6 +132,10 @@ class JamfProAPIClient: Networking {
         return info.activationCode.organizationName
     }
 
+	/// Gets the Jamf Pro version
+	///
+	/// No specific permissions required.
+	/// - Returns: The Jamf Pro server version
     func getJamfProVersion() async throws -> JamfProVersion {
         let endpoint = "api/v1/jamf-pro-version"
         var request = try url(forEndpoint: endpoint)
@@ -133,6 +156,10 @@ class JamfProAPIClient: Networking {
         return info
     }
 
+	/// Uploads a computer configuration profile
+	///
+	/// Requires "Create macOS Configuration Profiles" permission in the API
+	/// - Parameter profileData: The prepared profile data
     func upload(computerConfigProfile profileData: Data) async throws {
         let endpoint = "JSSResource/osxconfigurationprofiles"
         var request = try url(forEndpoint: endpoint)

@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 <!-- Add any information here about changes in master that have yet to be released -->
 
-N/A
+- Connection to Jamf Pro can now use client credentials with Jamf Pro v10.49+
 
 ## [1.5.0] - 2022-10-04
 
