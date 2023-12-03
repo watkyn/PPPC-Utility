@@ -33,6 +33,8 @@ Jamf Pro 10.49 and higher can use OAuth client credentials to access the API.  T
 "API Roles and clients" settings are used during the PPPC Utility upload process.  When setting up the API Role, these are the permissions that
 PPPC Utility requires to upload the profiles.
 
+#### Required API Permissions
+
 - "Create macOS Configuration Profiles" - primary permission to upload profiles; each upload from PPPC Utility creates a new profile.
 - "Read Activation Code" - needed to retrieve the organization name that is placed in the profile.
 
