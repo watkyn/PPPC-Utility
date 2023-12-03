@@ -133,9 +133,18 @@ struct UploadInfoView: View {
 		.frame(minWidth: 450)
 		.background(Color(.windowBackgroundColor))
 		.onAppear {
+			// Load keychain values
 			if let creds = try? SecurityWrapper.loadCredentials(server: serverURL) {
 				username = creds.username
 				password = creds.password
+			}
+
+			// Use model payload values if it was imported
+			if let tccProfile = Model.shared.importedTCCProfile {
+				organization = tccProfile.organization
+				payloadName = tccProfile.displayName
+				payloadDescription = tccProfile.payloadDescription
+				payloadId = tccProfile.identifier
 			}
 		}
 	}

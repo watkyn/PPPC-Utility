@@ -36,7 +36,6 @@
 		6EC40A12214DF8FE00BE4F17 /* SecurityWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC40A11214DF8FE00BE4F17 /* SecurityWrapper.swift */; };
 		6EC40A14214DFB5800BE4F17 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC40A13214DFB5800BE4F17 /* Model.swift */; };
 		6EC40A16214ECF1E00BE4F17 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC40A15214ECF1E00BE4F17 /* SaveViewController.swift */; };
-		6EC40A18214ECF2C00BE4F17 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC40A17214ECF2C00BE4F17 /* UploadViewController.swift */; };
 		6EC40A1C214EF87800BE4F17 /* SigningIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC40A1B214EF87800BE4F17 /* SigningIdentity.swift */; };
 		71061E54246106C800822D35 /* LoadExecutableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71061E53246106C800822D35 /* LoadExecutableError.swift */; };
 		B5E09548250BCCFC00A40409 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E09547250BCCFC00A40409 /* Alert.swift */; };
@@ -107,7 +106,6 @@
 		6EC40A11214DF8FE00BE4F17 /* SecurityWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityWrapper.swift; sourceTree = "<group>"; };
 		6EC40A13214DFB5800BE4F17 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		6EC40A15214ECF1E00BE4F17 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
-		6EC40A17214ECF2C00BE4F17 /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
 		6EC40A1B214EF87800BE4F17 /* SigningIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigningIdentity.swift; sourceTree = "<group>"; };
 		71061E53246106C800822D35 /* LoadExecutableError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadExecutableError.swift; sourceTree = "<group>"; };
 		97227C6726248CD7000F26C1 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
@@ -307,7 +305,6 @@
 			children = (
 				6EC409F2214D8FFA00BE4F17 /* TCCProfileViewController.swift */,
 				6EC40A15214ECF1E00BE4F17 /* SaveViewController.swift */,
-				6EC40A17214ECF2C00BE4F17 /* UploadViewController.swift */,
 				6E6216F8215321CE0043DF18 /* OpenViewController.swift */,
 			);
 			path = "View Controllers";
@@ -514,7 +511,6 @@
 				C0E0383F27A30C7100A23FA2 /* PPPCServiceInfo.swift in Sources */,
 				C0EE9A7F2863BDE300738B6B /* JamfProAPITypes.swift in Sources */,
 				6EC40A1C214EF87800BE4F17 /* SigningIdentity.swift in Sources */,
-				6EC40A18214ECF2C00BE4F17 /* UploadViewController.swift in Sources */,
 				C03270C128636397008B38E0 /* JamfProAPIClient.swift in Sources */,
 				C0E0384027A30C7100A23FA2 /* PPPCServicesManager.swift in Sources */,
 				C07B1FB82AF596D80075E38B /* UploadManager.swift in Sources */,
