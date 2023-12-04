@@ -26,6 +26,8 @@
 //
 
 import Cocoa
+import os.log
+import SwiftUI
 
 enum TCCProfileDisplayValue: String {
     case allow = "Allow"
@@ -173,6 +175,24 @@ class TCCProfileViewController: NSViewController {
     @IBAction func toggleAuthorizationKeyUsage(_ sender: NSSwitch) {
         toggleAuthorizationKey(theSwitch: sender, showAlert: true)
     }
+
+	@IBAction func uploadAction(_ sender: NSButton) {
+		let identities: [SigningIdentity]
+		do {
+			identities = try SecurityWrapper.loadSigningIdentities()
+		} catch {
+			identities = []
+			os_log("Error loading identities: %s", type: .error, error.localizedDescription)
+		}
+
+		let uploadView = UploadInfoView(signingIdentities: identities) {
+			// Dismiss the sheet when the UploadInfoView decides it is done
+			if let controller = self.presentedViewControllers?.first {
+				self.dismiss(controller)
+			}
+		}
+		self.presentAsSheet(NSHostingController(rootView: uploadView))
+	}
 
     fileprivate func showAlert(_ error: LocalizedError, for window: NSWindow) {
         let alertWindow: NSAlert = NSAlert()

@@ -30,22 +30,22 @@ public extension URLSession {
         let onCancel = { dataTask?.cancel() }
 
         return try await withTaskCancellationHandler(
-            handler: {
-                onCancel()
-            },
-            operation: {
-                try await withCheckedThrowingContinuation { continuation in
-                    dataTask = self.dataTask(with: request) { data, response, error in
-                        guard let data = data, let response = response else {
-                            let error = error ?? URLError(.badServerResponse)
-                            return continuation.resume(throwing: error)
-                        }
+			operation: {
+				try await withCheckedThrowingContinuation { continuation in
+					dataTask = self.dataTask(with: request) { data, response, error in
+						guard let data = data, let response = response else {
+							let error = error ?? URLError(.badServerResponse)
+							return continuation.resume(throwing: error)
+						}
 
-                        continuation.resume(returning: (data, response))
-                    }
+						continuation.resume(returning: (data, response))
+					}
 
-                    dataTask?.resume()
-                }
+					dataTask?.resume()
+				}
+			},
+			onCancel: {
+				onCancel()
             }
         )
     }
