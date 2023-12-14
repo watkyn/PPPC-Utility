@@ -50,6 +50,7 @@
 		C07B1FB82AF596D80075E38B /* UploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07B1FB72AF596D80075E38B /* UploadManager.swift */; };
 		C0A2B5422B1A5D5C0007F510 /* JamfProAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2B5412B1A5D5C0007F510 /* JamfProAPIClientTests.swift */; };
 		C0A85DB5279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = C0A85DB4279873C600086283 /* TestTCCUnsignedProfile-allLower.mobileconfig */; };
+		C0DC2BB92B2263FC003A4474 /* Haversack in Frameworks */ = {isa = PBXBuildFile; productRef = C0DC2BB82B2263FC003A4474 /* Haversack */; };
 		C0E0383F27A30C7100A23FA2 /* PPPCServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E0383D27A30C7100A23FA2 /* PPPCServiceInfo.swift */; };
 		C0E0384027A30C7100A23FA2 /* PPPCServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E0383E27A30C7100A23FA2 /* PPPCServicesManager.swift */; };
 		C0E0384227A30D1D00A23FA2 /* PPPCServices.json in Resources */ = {isa = PBXBuildFile; fileRef = C0E0384127A30D1D00A23FA2 /* PPPCServices.json */; };
@@ -143,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0DC2BB92B2263FC003A4474 /* Haversack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +379,9 @@
 			dependencies = (
 			);
 			name = "PPPC Utility";
+			packageProductDependencies = (
+				C0DC2BB82B2263FC003A4474 /* Haversack */,
+			);
 			productName = TCCUtility;
 			productReference = 6EC409DA214D65BC00BE4F17 /* PPPC Utility.app */;
 			productType = "com.apple.product-type.application";
@@ -419,6 +424,9 @@
 				Base,
 			);
 			mainGroup = 6EC409D1214D65BC00BE4F17;
+			packageReferences = (
+				C0DC2BB72B2263FC003A4474 /* XCRemoteSwiftPackageReference "Haversack" */,
+			);
 			productRefGroup = 6EC409DB214D65BC00BE4F17 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -797,6 +805,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C0DC2BB72B2263FC003A4474 /* XCRemoteSwiftPackageReference "Haversack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jamf/Haversack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C0DC2BB82B2263FC003A4474 /* Haversack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0DC2BB72B2263FC003A4474 /* XCRemoteSwiftPackageReference "Haversack" */;
+			productName = Haversack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6EC409D2214D65BC00BE4F17 /* Project object */;
 }

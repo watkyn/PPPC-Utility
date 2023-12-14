@@ -4,7 +4,7 @@
 //
 //  MIT License
 //
-//  Copyright (c) 2018 Jamf Software
+//  Copyright (c) 2023 Jamf Software
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,7 @@
 //
 
 import Foundation
+import Haversack
 
 struct SecurityWrapper {
 
@@ -37,64 +38,36 @@ struct SecurityWrapper {
     }
 
     static func saveCredentials(username: String, password: String, server: String) throws {
+		let haversack = Haversack()
+		let item = InternetPasswordEntity()
+		item.server = server
+		item.account = username
+		item.passwordData = password.data(using: .utf8)
 
-        do {
-            let possibleResult = try loadCredentials(server: server)
-            if let old = possibleResult, username == old.username && password == old.password {
-                return
-            } else {
-                let dict = [
-                    kSecClass as String: kSecClassInternetPassword,
-                    kSecAttrServer as String: server
-                ] as CFDictionary
-                try execute { SecItemDelete(dict) }
-            }
-        } catch {}
-
-        let dict = [
-            kSecClass as String: kSecClassInternetPassword,
-            kSecAttrServer as String: server,
-            kSecAttrAccount as String: username,
-            kSecValueData as String: password
-        ] as CFDictionary
-        try execute { SecItemAdd(dict, nil) }
+		try haversack.save(item, itemSecurity: .standard, updateExisting: true)
     }
 
     static func removeCredentials(server: String, username: String) throws {
-        let dict = [
-            kSecClass as String: kSecClassInternetPassword,
-            kSecAttrServer as String: server,
-            kSecAttrAccount as String: username
-        ] as CFDictionary
-        try execute { SecItemDelete(dict) }
+		let haversack = Haversack()
+		let query = InternetPasswordQuery(server: server)
+			.matching(account: username)
+
+		try haversack.delete(where: query, treatNotFoundAsSuccess: true)
     }
 
     static func loadCredentials(server: String) throws -> (username: String, password: String)? {
-        let dict = [
-            kSecClass as String: kSecClassInternetPassword,
-            kSecAttrServer as String: server,
-            kSecMatchLimit as String: kSecMatchLimitOne,
-            kSecReturnAttributes as String: true,
-            kSecReturnData as String: true
-        ] as CFDictionary
+		let haversack = Haversack()
+		let query = InternetPasswordQuery(server: server)
+			.returning([.attributes, .data])
 
-        var item: CFTypeRef?
-        try execute {
-            let status = SecItemCopyMatching(dict, &item)
-            //  Check if success or not found, thrown error is a "real" error
-            if status == errSecSuccess || status == errSecItemNotFound {
-                return errSecSuccess
-            }
-            return status
-        }
-        guard let existingItem = item as? [String: Any],
-            let passwordData = existingItem[kSecValueData as String] as? Data,
-            let password = String(data: passwordData, encoding: .utf8),
-            let username = existingItem[kSecAttrAccount as String] as? String
-            else {
-                return nil
-        }
-        return (username: username, password: password)
+		if let item = try? haversack.first(where: query),
+		   let username = item.account,
+		   let passwordData = item.passwordData,
+		   let password = String(data: passwordData, encoding: .utf8) {
+			return (username: username, password: password)
+		}
+
+		return nil
     }
 
     static func copyDesignatedRequirement(url: URL) throws -> String {
@@ -124,22 +97,20 @@ struct SecurityWrapper {
     }
 
     static func loadSigningIdentities() throws -> [SigningIdentity] {
+		let haversack = Haversack()
+		let query = IdentityQuery().matching(mustBeValidOnDate: Date()).returning(.reference)
 
-        let dict = [
-            kSecClass as String: kSecClassIdentity,
-            kSecReturnRef as String: true,
-            kSecMatchLimit as String: kSecMatchLimitAll
-        ] as CFDictionary
+		let identities = try haversack.search(where: query)
 
-        var result: AnyObject?
-        try execute { SecItemCopyMatching(dict, &result) }
+		return identities.compactMap {
+			guard let secIdentity = $0.reference else {
+				return nil
+			}
 
-        guard let secIdentities = result as? [SecIdentity] else { return [] }
-
-        return secIdentities.map {
-            let name = try? getCertificateCommonName(for: $0)
-            return SigningIdentity(name: name ?? "Unknown \($0.hashValue)", reference: $0)
-        }
+			let name = try? getCertificateCommonName(for: secIdentity)
+			return SigningIdentity(name: name ?? "Unknown \(secIdentity.hashValue)",
+								   reference: secIdentity)
+		}
     }
 
     static func getCertificateCommonName(for identity: SecIdentity) throws -> String {
