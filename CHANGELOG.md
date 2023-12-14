@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Connection to Jamf Pro can now use client credentials with Jamf Pro v10.49+ ([Issue #120](https://github.com/jamf/PPPC-Utility/issues/120)) [@macblazer](https://github.com/macblazer).
 
 ### Changed
+- Now using [Haversack](https://github.com/jamf/Haversack) for simplified access to the keychain ([Issue #124](https://github.com/jamf/PPPC-Utility/issues/124)) [@macblazer](https://github.com/macblazer).
 - PPPC Utility now requires macOS 11+ to run.  It can still produce profiles usable on older versions of macOS.
 
 ## [1.5.0] - 2022-10-04

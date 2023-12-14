@@ -103,10 +103,8 @@ struct UploadInfoView: View {
 				HStack {
 					Text(networkInfo)
 						.font(.headline)
-					if #available(macOS 11.0, *) {
-						ProgressView()
-							.padding(.leading)
-					}
+					ProgressView()
+						.padding(.leading)
 				}
 			}
 
