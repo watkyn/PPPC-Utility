@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "haversack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jamf/Haversack.git",
+      "state" : {
+        "revision" : "840fd566ca709fe0932b231df63833d50488e127",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections",
+      "state" : {
+        "revision" : "a902f1823a7ff3c9ab2fba0f992396b948eda307",
+        "version" : "1.0.5"
+      }
+    }
+  ],
+  "version" : 2
+}
